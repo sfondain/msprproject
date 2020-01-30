@@ -9,6 +9,7 @@ import {
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Scanner from './Scanner';
+import List from './List';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -17,10 +18,17 @@ class HomeScreen extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-        <Button
-            title="Scanner un code"
-            onPress={() => navigate('Scan')}
-        />
+        <View>
+          <Button
+              title="Scanner un code"
+              onPress={() => navigate('Scan')}
+              color="red"
+          />
+          <Button
+              title="Liste des codes scannés"
+              onPress={() => navigate('List')}
+          />
+        </View>
     );
   }
 }
@@ -28,8 +36,10 @@ class HomeScreen extends React.Component {
 const MainNavigator = createStackNavigator({
   Home: {screen: HomeScreen},
   Scan: {screen: Scanner},
+  List: {screen: List},
 });
 
 const App = createAppContainer(MainNavigator);
 
 export default App;
+
