@@ -38,15 +38,19 @@ export default class Example extends Component {
     }
     connection(){
         const {navigate} = this.props.navigation;
-        login(this.state.mail,md5(this.state.password)).then(data => {
-            if(data.error){
-              alert("Login ou mot de passe Incorrect !")
-            }
-            else{
-                this._storeData(data.data.id)
-                navigate('Home')
-            }
-        });
+        if(this.state.mail == ''){
+            alert("Login ou mot de passe incorrect")
+        }
+        else {
+            login(this.state.mail, md5(this.state.password)).then(data => {
+                if (data.error) {
+                    alert(data.error)
+                } else {
+                    this._storeData(data.data.id)
+                    navigate('Home')
+                }
+            });
+        }
     }
     render() {
         const {navigate} = this.props.navigation;

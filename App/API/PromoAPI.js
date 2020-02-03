@@ -13,3 +13,10 @@ export function login(mail,password) {
         .then((response) => response.json())
         .catch((error) => console.error(error))
 }
+
+export function signup(mail,password,firstname,lastname) {
+    const url = API_URL + '/insert_user/'+mail+'/'+password+'/'+firstname+'/'+lastname
+    return fetch(url)
+        .then((response) => response.json())
+        .catch((error) => console.error(error))
+}

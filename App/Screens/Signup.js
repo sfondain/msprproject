@@ -10,12 +10,40 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+//Appel API
+import {signup} from "../API/PromoAPI";
+
 import bgImage from '../Image/background.jpg'
 import Icon from 'react-native-vector-icons/Ionicons'
-import logo from "../Image/logo.png";
+import {login} from "../API/PromoAPI";
+import md5 from "md5";
 
 const {width: WIDTH} = Dimensions.get('window')
 export default class Example extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {firstname: '',lastname:'',mail:'',password:'',passwordV:''};
+    }
+    signup(){
+        const {navigate} = this.props.navigation;
+        if(this.state.firstname == '' || this.state.lastname == '' || this.state.mail == '' || this.state.password == '' || this.state.passwordV == ''){
+            alert("Veuillez renseigner tout les champs")
+        }
+        else {
+            if (this.state.password != this.state.passwordV) {
+                alert("Veuillez saisir deux fois le même mot de passe")
+            } else {
+                signup(this.state.mail, md5(this.state.password), this.state.firstname, this.state.lastname).then(data => {
+                    if (data.error) {
+                        alert(data.error)
+                    } else {
+                        alert(data.data)
+                        navigate('Login')
+                    }
+                });
+            }
+        }
+    }
     render() {
         return (
             <ImageBackground source={bgImage} style={styles.backgroundContainer}>
@@ -28,6 +56,7 @@ export default class Example extends Component {
                                placeholder={'Nom'}
                                placeholderTextColor={'white'}
                                underlineColorAndroid='transparent'
+                               onChangeText={(text) => this.setState({lastname: text})}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -36,6 +65,7 @@ export default class Example extends Component {
                                placeholder={'Prénom'}
                                placeholderTextColor={'white'}
                                underlineColorAndroid='transparent'
+                               onChangeText={(text) => this.setState({firstname: text})}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -44,6 +74,7 @@ export default class Example extends Component {
                                placeholder={'Mail'}
                                placeholderTextColor={'white'}
                                underlineColorAndroid='transparent'
+                               onChangeText={(text) => this.setState({mail: text})}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -53,6 +84,7 @@ export default class Example extends Component {
                                secureTextEntry={true}
                                placeholderTextColor={'white'}
                                underlineColorAndroid='transparent'
+                               onChangeText={(text) => this.setState({password: text})}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -62,10 +94,11 @@ export default class Example extends Component {
                                secureTextEntry={true}
                                placeholderTextColor={'white'}
                                underlineColorAndroid='transparent'
+                               onChangeText={(text) => this.setState({passwordV: text})}
                     />
                 </View>
                 <TouchableOpacity style={styles.btnSignup}>
-                    <Text style={styles.text}>Création du compte</Text>
+                    <Text style={styles.text} onPress={() => {this.signup()}}>Création du compte</Text>
                 </TouchableOpacity>
             </ImageBackground>
         );
