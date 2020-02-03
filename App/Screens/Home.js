@@ -1,6 +1,5 @@
 import React from "react";
 import {Button, View, Text, FlatList} from "react-native";
-import films from '../../filmsData';
 
 class Home extends React.Component {
     render() {
