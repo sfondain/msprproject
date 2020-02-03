@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, Button, FlatList, TextInput } from 'react-native';
 import {getPromoFromApi} from "../API/PromoAPI";
 import PromoItem from "../Components/PromoItem";
+import films from '../../filmsData';
+import FilmItem from '../Components/FilmItem';
 
 class ListePromo extends React.Component {
     constructor(props) {
         super(props)
-        this._data = []
+        this._promos = []
     }
     _loadPromo() {
         getPromoFromApi().then(data => {
-            this._data = data.results
+            this._promos = data.results
             this.forceUpdate()
         });
     }
@@ -18,16 +20,12 @@ class ListePromo extends React.Component {
         const { promo, displayDetailForPromo } = this.props
         return (
             <View>
-                <Text>
-                    { this._data }
-                </Text>
-                <Text>
-                    Hello
-                </Text>
+                <TextInput placeholder='Titre du film'/>
+                <Button title='Rechercher' onPress={() => this._loadPromo()}/>
                 <FlatList
-                    data={films}
+                    data={this._promos}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => <PromoItem film={item}/>}
+                    renderItem={({item}) => <PromoItem promo={item}/>}
                 />
             </View>
         )

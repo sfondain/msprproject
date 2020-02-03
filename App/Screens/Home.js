@@ -19,11 +19,6 @@ class Home extends React.Component {
                     title="Promos"
                     onPress={() => navigate('Promo')}
                 />
-                <FlatList
-                    data={films}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => <Text>{item.title}</Text>}
-                />
             </View>
         );
     }

@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 
-class PromoItem extends React.Component {
+class FilmItem extends React.Component {
     render() {
-        const promo = this.props.promo
+        const film = this.props.film
         return (
             <View style={styles.main_container}>
                 <Image
@@ -12,15 +12,15 @@ class PromoItem extends React.Component {
                 />
                 <View style={styles.content_container}>
                     <View style={styles.header_container}>
-                        <Text style={styles.title_text}>{promo.code}</Text>
-                        {/*<Text style={styles.vote_text}>{promo.vote_average}</Text>*/}
+                        <Text style={styles.title_text}>{film.title}</Text>
+                        <Text style={styles.vote_text}>{film.vote_average}</Text>
                     </View>
                     <View style={styles.description_container}>
-                        <Text style={styles.description_text} numberOfLines={6}>{promo.reduction}</Text>
+                        <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
                     </View>
-                    {/*<View style={styles.date_container}>*/}
-                        {/*<Text style={styles.date_text}>Sorti le {promo.end_date}</Text>*/}
-                    {/*</View>*/}
+                    <View style={styles.date_container}>
+                        <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
+                    </View>
                 </View>
             </View>
         )
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default PromoItem
+export default FilmItem
