@@ -6,3 +6,10 @@ export function getPromoFromApi() {
         .then((response) => response.json())
         .catch((error) => console.error(error))
 }
+
+export function login(mail,password) {
+    const url = API_URL + '/connect_user/'+mail+'/'+password
+    return fetch(url)
+        .then((response) => response.json())
+        .catch((error) => console.error(error))
+}

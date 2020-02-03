@@ -14,10 +14,6 @@ class Home extends React.Component {
                     title="Liste des codes scannés"
                     onPress={() => navigate('List')}
                 />
-                <Button
-                    title="Promos"
-                    onPress={() => navigate('Promo')}
-                />
             </View>
         );
     }

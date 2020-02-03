@@ -5,8 +5,22 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Home from '../Screens/Home'
 import Scanner from '../Screens/Scanner';
 import ListePromo from '../Screens/ListePromo'
+import Login from "../Screens/Login";
+import Signup from "../Screens/Signup";
 
 const HomeStackNavigator = createStackNavigator({
+    Login: {
+        screen: Login,
+        navigationOptions: {
+            title: 'Connexion'
+        }
+    },
+    Signup:{
+        screen: Signup,
+        navigationOptions: {
+            title: 'Inscription'
+        }
+    },
     Home: {
         screen: Home,
         navigationOptions: {
