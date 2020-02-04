@@ -1,9 +1,14 @@
 import React from "react";
-import {View, Text, StyleSheet, Dimensions, TouchableOpacity} from "react-native";
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity,BackHandler} from "react-native";
 
 const {width: WIDTH} = Dimensions.get('window');
 
 class Home extends React.Component {
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', function() {return true;});
+    }
+
     render() {
         const {navigate} = this.props.navigation;
         return (
