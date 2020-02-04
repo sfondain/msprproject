@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
+import {Text, View, StyleSheet, Button, AsyncStorage} from 'react-native';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 
 // Appel API
@@ -18,7 +18,9 @@ export default function App() {
 
     const handleBarCodeScanned = ({type, data}) => {
         setScanned(true);
-        addPromoToUserList().then(response => {
+        // alert(userId);
+        let userId;
+        addPromoToUserList(userId, data).then(response => {
             console.log(response.error);
             if (response.error) {
                 alert(response.error);
@@ -47,7 +49,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-    view:{
+    view: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-end',

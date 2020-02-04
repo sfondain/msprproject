@@ -27,8 +27,9 @@ const {width: WIDTH} = Dimensions.get('window')
 export default class Example extends Component {
     constructor(props) {
         super(props);
-        this.state = {mail: '',password:''};
+        this.state = {mail: '', password: ''};
     }
+
     _storeData = async (id) => {
         try {
             await AsyncStorage.setItem('user', id);
@@ -36,12 +37,12 @@ export default class Example extends Component {
             // Error saving data
         }
     }
-    connection(){
+
+    connection() {
         const {navigate} = this.props.navigation;
-        if(this.state.mail == ''){
+        if (this.state.mail == '') {
             alert("Login ou mot de passe incorrect")
-        }
-        else {
+        } else {
             login(this.state.mail, md5(this.state.password)).then(data => {
                 if (data.error) {
                     alert(data.error)
@@ -52,6 +53,7 @@ export default class Example extends Component {
             });
         }
     }
+
     render() {
         const {navigate} = this.props.navigation;
         return (
@@ -64,10 +66,10 @@ export default class Example extends Component {
                 <View style={styles.inputContainer}>
                     <Icon name={'md-mail'} size={28} style={styles.inputIcon}/>
                     <TextInput style={styles.input}
-                        placeholder={'Mail'}
-                        placeholderTextColor={'white'}
-                        underlineColorAndroid='transparent'
-                        onChangeText={(text) => this.setState({mail: text})}
+                               placeholder={'Mail'}
+                               placeholderTextColor={'white'}
+                               underlineColorAndroid='transparent'
+                               onChangeText={(text) => this.setState({mail: text})}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -82,7 +84,9 @@ export default class Example extends Component {
                 </View>
 
                 <TouchableOpacity style={styles.btn}
-                                  onPress={() => {this.connection()}}>
+                                  onPress={() => {
+                                      this.connection()
+                                  }}>
                     <Text style={styles.text}>Connexion</Text>
                 </TouchableOpacity>
 
@@ -96,27 +100,27 @@ export default class Example extends Component {
 
 const styles = StyleSheet.create({
     backgroundContainer: {
-      flex:1,
-      width:null,
-        height:null,
-        alignItems:'center'
+        flex: 1,
+        width: null,
+        height: null,
+        alignItems: 'center'
     },
-    logoContainer:{
+    logoContainer: {
         alignItems: 'center',
-        marginBottom:50
+        marginBottom: 50
     },
-    logo:{
-        width:120,
-        height:120
+    logo: {
+        width: 120,
+        height: 120
     },
-    logoText:{
-        color:'black',
-        fontSize:20,
-        fontWeight:'500',
-        marginTop:10,
+    logoText: {
+        color: 'black',
+        fontSize: 20,
+        fontWeight: '500',
+        marginTop: 10,
         opacity: 0.5
     },
-    inputContainer:{
+    inputContainer: {
         marginTop: 10
     },
     input: {
@@ -134,17 +138,17 @@ const styles = StyleSheet.create({
         top: 10,
         left: 37
     },
-    btn:{
+    btn: {
         width: WIDTH - 55,
         height: 45,
         borderRadius: 25,
         backgroundColor: '#432577',
-        justifyContent:'center',
-        marginTop:20
+        justifyContent: 'center',
+        marginTop: 20
     },
-    text:{
+    text: {
         color: 'white',
-        fontSize:16,
-        textAlign:'center'
+        fontSize: 16,
+        textAlign: 'center'
     }
 });

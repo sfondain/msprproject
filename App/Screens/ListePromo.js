@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { View, FlatList } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, FlatList, AsyncStorage} from 'react-native';
 import PromoItem from "../Components/PromoItem";
 
 // Appel API
 import {getPromoFromApi} from "../API/PromoAPI";
 
 class ListePromo extends React.Component {
+
     constructor(props) {
         super(props)
+        const {navigation} = this.props;
         this._promos = []
-        this._loadPromo()
+        this._loadPromo(this.props.navigation.state.params)
     }
-    _loadPromo() {
-        getPromoFromApi().then(data => {
+
+    _loadPromo(userId) {
+        getPromoFromApi(userId).then(data => {
             this._promos = data.data
             this.forceUpdate()
         });
     }
+
     render() {
-        const { promo, displayDetailForPromo } = this.props
         return (
             <View>
                 <FlatList
