@@ -5,7 +5,7 @@ import {BarCodeScanner} from 'expo-barcode-scanner';
 // Appel API
 import {addPromoToUserList} from "../API/PromoAPI";
 
-export default function App() {
+export default function App(userId) {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
 
@@ -18,10 +18,8 @@ export default function App() {
 
     const handleBarCodeScanned = ({type, data}) => {
         setScanned(true);
-        // alert(userId);
-        let userId;
-        addPromoToUserList(userId, data).then(response => {
-            console.log(response.error);
+        let userid = userId.navigation.state.params
+        addPromoToUserList(userid, data).then(response => {
             if (response.error) {
                 alert(response.error);
             } else {
