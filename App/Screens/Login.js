@@ -21,7 +21,7 @@ import md5 from 'md5';
 
 //Images
 import bgImage from '../Image/background.jpg'
-import logo from '../Image/logo.png'
+import logo from '../Image/gostyle.png'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 //Récupération des dimensions du portable
@@ -81,7 +81,6 @@ export default class Example extends Component {
             <ImageBackground source={bgImage} style={styles.backgroundContainer}>
                 <View style={styles.logoContainer}>
                     <Image source={logo} style={styles.logo}/>
-                    <Text style={styles.logoText}>GoStyle</Text>
                 </View>
 
                 <View style={styles.inputContainer}>
@@ -131,18 +130,12 @@ const styles = StyleSheet.create({
     },
     logoContainer:{
         alignItems: 'center',
-        marginBottom:50
+        marginBottom:20
     },
     logo:{
-        width:120,
-        height:120
-    },
-    logoText:{
-        color:'black',
-        fontSize:20,
-        fontWeight:'500',
-        marginTop:10,
-        opacity: 0.5
+        marginTop:20,
+        width:220,
+        height:90
     },
     inputContainer:{
         marginTop: 10
