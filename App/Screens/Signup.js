@@ -22,7 +22,13 @@ const {width: WIDTH} = Dimensions.get('window')
 export default class Example extends Component {
     constructor(props) {
         super(props);
-        this.state = {firstname: '',lastname:'',mail:'',password:'',passwordV:''};
+        this.state = {firstname: '',lastname:'',mail:'',password:'',passwordV:'',hidePassword:true,hidePasswordV:true};
+    }
+    setPasswordVisibility = () => {
+        this.setState({ hidePassword: !this.state.hidePassword });
+    }
+    setPasswordVisibilityV = () => {
+        this.setState({ hidePasswordV: !this.state.hidePasswordV });
     }
     signup(){
         const {navigate} = this.props.navigation;
@@ -81,21 +87,27 @@ export default class Example extends Component {
                     <Icon name={'md-lock'} size={28} style={styles.inputIcon}/>
                     <TextInput style={styles.input}
                                placeholder={'Mot de passe'}
-                               secureTextEntry={true}
+                               secureTextEntry={this.state.hidePassword}
                                placeholderTextColor={'white'}
                                underlineColorAndroid='transparent'
                                onChangeText={(text) => this.setState({password: text})}
                     />
+                    <TouchableOpacity style={styles.btnEye} onPress={this.setPasswordVisibility}>
+                        <Icon name={'md-eye'} size={26} />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.inputContainer}>
                     <Icon name={'md-lock'} size={28} style={styles.inputIcon}/>
                     <TextInput style={styles.input}
                                placeholder={'Validation mot de passe'}
-                               secureTextEntry={true}
+                               secureTextEntry={this.state.hidePasswordV}
                                placeholderTextColor={'white'}
                                underlineColorAndroid='transparent'
                                onChangeText={(text) => this.setState({passwordV: text})}
                     />
+                    <TouchableOpacity style={styles.btnEye} onPress={this.setPasswordVisibilityV}>
+                        <Icon name={'md-eye'} size={26} />
+                    </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.btnSignup}>
                     <Text style={styles.text} onPress={() => {this.signup()}}>Création du compte</Text>
@@ -153,5 +165,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         textAlign: 'center'
+    },
+    btnEye:{
+        position:'absolute',
+        top:8,
+        right:37
     }
 });
