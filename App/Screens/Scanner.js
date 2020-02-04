@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import React, {useState, useEffect} from 'react';
+import {Text, View, StyleSheet, Button} from 'react-native';
+import {BarCodeScanner} from 'expo-barcode-scanner';
+
+// Appel API
+import {addPromoToUserList} from "../API/PromoAPI";
 
 export default function App() {
     const [hasPermission, setHasPermission] = useState(null);
@@ -8,16 +11,22 @@ export default function App() {
 
     useEffect(() => {
         (async () => {
-            const { status } = await BarCodeScanner.requestPermissionsAsync();
+            const {status} = await BarCodeScanner.requestPermissionsAsync();
             setHasPermission(status === 'granted');
         })();
     }, []);
 
-    const handleBarCodeScanned = ({ type, data }) => {
+    const handleBarCodeScanned = ({type, data}) => {
         setScanned(true);
-        alert(`Bar code de type ${type} et les données ${data} ont été scanné!`);
+        addPromoToUserList().then(response => {
+            console.log(response.error);
+            if (response.error) {
+                alert(response.error);
+            } else {
+                alert(response.data);
+            }
+        });
     };
-
     if (hasPermission === null) {
         return <Text>Demande d'autorisation pour l'utilisation de la caméra</Text>;
     }
@@ -32,7 +41,7 @@ export default function App() {
                 style={StyleSheet.absoluteFillObject}
             />
 
-            {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+            {scanned && <Button title={'Scanner à nouveau'} onPress={() => setScanned(false)}/>}
         </View>
     );
 }

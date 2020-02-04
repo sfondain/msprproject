@@ -15,7 +15,7 @@ class Home extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.btn}
-                    onPress={() => navigate('List')}>
+                    onPress={() => navigate('Promo')}>
                     <Text style={styles.text}>Liste des codes scannés</Text>
                 </TouchableOpacity>
             </View>

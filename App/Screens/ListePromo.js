@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
-import {getPromoFromApi} from "../API/PromoAPI";
 import PromoItem from "../Components/PromoItem";
+
+// Appel API
+import {getPromoFromApi} from "../API/PromoAPI";
 
 class ListePromo extends React.Component {
     constructor(props) {
