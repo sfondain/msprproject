@@ -1,3 +1,4 @@
+//Import de React
 import React, {Component} from 'react';
 import {
     StyleSheet,
@@ -13,36 +14,50 @@ import {
 //Appel API
 import {signup} from "../API/PromoAPI";
 
+//Images
 import bgImage from '../Image/background.jpg'
 import Icon from 'react-native-vector-icons/Ionicons'
-import {login} from "../API/PromoAPI";
+
+//Import MD5
 import md5 from "md5";
 
+//Récupération dimensions du téléphone
 const {width: WIDTH} = Dimensions.get('window')
 export default class Example extends Component {
+    //Constructeur avec déclaration du state
     constructor(props) {
         super(props);
         this.state = {firstname: '',lastname:'',mail:'',password:'',passwordV:'',hidePassword:true,hidePasswordV:true};
     }
+
+    //Fonction pour cacher/afficher le mot de passe
     setPasswordVisibility = () => {
         this.setState({ hidePassword: !this.state.hidePassword });
     }
+    //Fonction pour cacher/afficher la validation du mot de passe
     setPasswordVisibilityV = () => {
         this.setState({ hidePasswordV: !this.state.hidePasswordV });
     }
+    //Fonction d'inscription
     signup(){
         const {navigate} = this.props.navigation;
+        //Vérification si tous les champs sont renseignés
         if(this.state.firstname == '' || this.state.lastname == '' || this.state.mail == '' || this.state.password == '' || this.state.passwordV == ''){
             alert("Veuillez renseigner tout les champs")
         }
         else {
+            //Vérif si mot de passe et validation mot de passe sont pareils
             if (this.state.password != this.state.passwordV) {
                 alert("Veuillez saisir deux fois le même mot de passe")
             } else {
+                //Appel à l'API
                 signup(this.state.mail, md5(this.state.password), this.state.firstname, this.state.lastname).then(data => {
+                    //Si une erreur est retournée on l'affiche
                     if (data.error) {
                         alert(data.error)
-                    } else {
+                    }
+                    //Sinon création du compte et redirection vers login
+                    else {
                         alert(data.data)
                         navigate('Login')
                     }
@@ -51,6 +66,7 @@ export default class Example extends Component {
         }
     }
     render() {
+        //Affichage de la page
         return (
             <ImageBackground source={bgImage} style={styles.backgroundContainer}>
                 <View style={styles.header}>

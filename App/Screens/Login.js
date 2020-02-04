@@ -1,3 +1,4 @@
+//Import React
 import React, {Component} from 'react';
 import {
     StyleSheet,
@@ -14,6 +15,8 @@ import {
 
 //Appel API
 import {login} from "../API/PromoAPI";
+
+//Import MD5
 import md5 from 'md5';
 
 //Images
@@ -21,37 +24,50 @@ import bgImage from '../Image/background.jpg'
 import logo from '../Image/logo.png'
 import Icon from 'react-native-vector-icons/Ionicons'
 
+//Récupération des dimensions du portable
 const {width: WIDTH} = Dimensions.get('window')
 
 
 export default class Example extends Component {
+    //Constructeur avec déclaration du state
     constructor(props) {
         super(props);
         this.state = {mail: '',password:'',hidePassword:true};
     }
+
+    //Fonction de stockage dans le LocalStorage
     _storeData = async (id) => {
         try {
             await AsyncStorage.setItem('user', id);
         } catch (error) {
             // Error saving data
+            alert("Impossible d'enregistrer l'utilisateur")
         }
     }
 
+    //Fonction pour cacher/afficher le mot de passe
     setPasswordVisibility = () => {
         this.setState({ hidePassword: !this.state.hidePassword });
     }
 
+    //Fonction pour la connexion
     connection(){
         const {navigate} = this.props.navigation;
+        //Si le mail est vide retourné une erreur
         if(this.state.mail == ''){
             alert("Login ou mot de passe incorrect")
         }
         else {
+            //Appel API
             login(this.state.mail, md5(this.state.password)).then(data => {
+                //Si retourner une erreur affichage de l'erreur
                 if (data.error) {
                     alert(data.error)
+                //Sinon Connexion
                 } else {
+                    //Stockage de l'id dans le localStorage
                     this._storeData(data.data.id)
+                    //Clear de l'input du Password
                     this.textInput.clear()
                     navigate('Home')
                 }
@@ -60,6 +76,7 @@ export default class Example extends Component {
     }
     render() {
         const {navigate} = this.props.navigation;
+        //Affichage de l'écran du login
         return (
             <ImageBackground source={bgImage} style={styles.backgroundContainer}>
                 <View style={styles.logoContainer}>
@@ -104,6 +121,7 @@ export default class Example extends Component {
     }
 }
 
+//Style
 const styles = StyleSheet.create({
     backgroundContainer: {
       flex:1,
