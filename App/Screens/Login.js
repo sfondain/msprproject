@@ -27,7 +27,7 @@ const {width: WIDTH} = Dimensions.get('window')
 export default class Example extends Component {
     constructor(props) {
         super(props);
-        this.state = {mail: '',password:''};
+        this.state = {mail: '',password:'',hidePassword:true};
     }
     _storeData = async (id) => {
         try {
@@ -36,6 +36,11 @@ export default class Example extends Component {
             // Error saving data
         }
     }
+
+    setPasswordVisibility = () => {
+        this.setState({ hidePassword: !this.state.hidePassword });
+    }
+
     connection(){
         const {navigate} = this.props.navigation;
         if(this.state.mail == ''){
@@ -47,6 +52,7 @@ export default class Example extends Component {
                     alert(data.error)
                 } else {
                     this._storeData(data.data.id)
+                    this.textInput.clear()
                     navigate('Home')
                 }
             });
@@ -74,11 +80,15 @@ export default class Example extends Component {
                     <Icon name={'md-lock'} size={28} style={styles.inputIcon}/>
                     <TextInput style={styles.input}
                                placeholder={'Mot de passe'}
-                               secureTextEntry={true}
+                               secureTextEntry={this.state.hidePassword}
                                placeholderTextColor={'white'}
                                underlineColorAndroid='transparent'
                                onChangeText={(text) => this.setState({password: text})}
+                               ref={input => { this.textInput = input }}
                     />
+                    <TouchableOpacity style={styles.btnEye} onPress={this.setPasswordVisibility}>
+                        <Icon name={'md-eye'} size={26} />
+                    </TouchableOpacity>
                 </View>
 
                 <TouchableOpacity style={styles.btn}
@@ -146,5 +156,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize:16,
         textAlign:'center'
+    },
+    btnEye:{
+        position:'absolute',
+        top:8,
+        right:37
     }
 });
