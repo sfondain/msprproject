@@ -21,17 +21,12 @@ export default function App() {
     if (hasPermission === null) {
         return <Text>Demande d'autorisation pour l'utilisation de la caméra</Text>;
     }
-    if (hasPermission === false) {
+    if (!hasPermission) {
         return <Text>Pas d'accès à la caméra</Text>;
     }
 
     return (
-        <View
-            style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-            }}>
+        <View style={styles.view}>
             <BarCodeScanner
                 onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
                 style={StyleSheet.absoluteFillObject}
@@ -41,3 +36,11 @@ export default function App() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    view:{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+    }
+});

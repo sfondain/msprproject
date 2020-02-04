@@ -141,14 +141,6 @@ const styles = StyleSheet.create({
         top: 10,
         left: 37
     },
-    btnLogin: {
-        width: WIDTH - 55,
-        height: 45,
-        borderRadius: 25,
-        backgroundColor: '#432577',
-        justifyContent: 'center',
-        marginTop: 20
-    },
     btnSignup: {
         width: WIDTH - 55,
         height: 45,

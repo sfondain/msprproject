@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, FlatList, TextInput } from 'react-native';
+import { View, FlatList } from 'react-native';
 import {getPromoFromApi} from "../API/PromoAPI";
 import PromoItem from "../Components/PromoItem";
 

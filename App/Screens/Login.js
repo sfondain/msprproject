@@ -81,12 +81,12 @@ export default class Example extends Component {
                     />
                 </View>
 
-                <TouchableOpacity style={styles.btnLogin}
+                <TouchableOpacity style={styles.btn}
                                   onPress={() => {this.connection()}}>
                     <Text style={styles.text}>Connexion</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.btnSignup} onPress={() => navigate('Signup')}>
+                <TouchableOpacity style={styles.btn} onPress={() => navigate('Signup')}>
                     <Text style={styles.text}>Inscription</Text>
                 </TouchableOpacity>
             </ImageBackground>
@@ -134,15 +134,7 @@ const styles = StyleSheet.create({
         top: 10,
         left: 37
     },
-    btnLogin:{
-        width: WIDTH - 55,
-        height: 45,
-        borderRadius: 25,
-        backgroundColor: '#432577',
-        justifyContent:'center',
-        marginTop:20
-    },
-    btnSignup:{
+    btn:{
         width: WIDTH - 55,
         height: 45,
         borderRadius: 25,
