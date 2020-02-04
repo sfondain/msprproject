@@ -8,12 +8,13 @@ import {getPromoFromApi} from "../API/PromoAPI";
 class ListePromo extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         const {navigation} = this.props;
-        this._promos = []
+        this._promos = [];
         this._loadPromo(this.props.navigation.state.params)
     }
 
+    // Charge la liste de codes promos de l'utilisateur
     _loadPromo(userId) {
         getPromoFromApi(userId).then(data => {
             this._promos = data.data

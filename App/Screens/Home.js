@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, StyleSheet, Dimensions, TouchableOpacity,BackHandler,AsyncStorage} from "react-native";
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity, BackHandler, AsyncStorage} from "react-native";
 
 const {width: WIDTH} = Dimensions.get('window');
 
@@ -7,22 +7,23 @@ class Home extends React.Component {
 
     constructor() {
         super();
-        this.state = {userId: this.getUserId()}
+        this.state = {userId: this._retrieveData()}
     }
 
-    getUserId() {
-        this._retrieveData()
-    }
+    // getUserId() {
+    //     this._retrieveData()
+    // }
 
+    // Récupère les données stockées dans le localstrorage
     _retrieveData = async () => {
         const value = await AsyncStorage.getItem('user')
-        this.setState({userId:value})
-            // console.log('value : ' + value);
-    }
-
+        this.setState({userId: value})
+    };
 
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', function() {return true;});
+        BackHandler.addEventListener('hardwareBackPress', function () {
+            return true;
+        });
     }
 
     _storeData = async () => {
@@ -33,7 +34,7 @@ class Home extends React.Component {
         }
     };
 
-    logout(){
+    logout() {
         const {navigate} = this.props.navigation;
         this._storeData()
         navigate('Login')
@@ -55,7 +56,9 @@ class Home extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.btnDeco}
-                    onPress={() => {this.logout()}}>
+                    onPress={() => {
+                        this.logout()
+                    }}>
                     <Text style={styles.text}>Déconnexion</Text>
                 </TouchableOpacity>
             </View>
@@ -76,18 +79,19 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        fontSize:16,
-        textAlign:'center'
+        fontSize: 16,
+        textAlign: 'center'
     },
-    btnDeco:{
+    btnDeco: {
         width: WIDTH - 55,
         height: 55,
         borderRadius: 25,
         backgroundColor: 'red',
-        justifyContent:'center',
-        marginTop:30,
-        marginLeft:'auto',
-        marginRight:'auto'
+        justifyContent: 'center',
+        marginTop: 30,
+        marginLeft: 'auto',
+        marginRight: 'auto'
     }
 });
+
 export default Home;

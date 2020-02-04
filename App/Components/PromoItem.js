@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import {StyleSheet, View, Text} from 'react-native'
 
+// Affichage des codes promos
 class PromoItem extends React.Component {
     render() {
         const promo = this.props.promo
@@ -51,6 +52,6 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         fontSize: 14
     }
-})
+});
 
 export default PromoItem

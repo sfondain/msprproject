@@ -1,4 +1,4 @@
-import {createAppContainer,StackActions,NavigationActions} from 'react-navigation';
+import {createAppContainer, StackActions, NavigationActions} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 // Page de l'appli
@@ -16,7 +16,7 @@ const HomeStackNavigator = createStackNavigator({
             title: 'Connexion'
         }
     },
-    Signup:{
+    Signup: {
         screen: Signup,
         navigationOptions: {
             title: 'Inscription'
@@ -41,10 +41,6 @@ const HomeStackNavigator = createStackNavigator({
             title: 'Promo'
         }
     }
-})
-
-
-
-
+});
 
 export default createAppContainer(HomeStackNavigator)

@@ -18,11 +18,11 @@ export default function App(userId) {
 
     const handleBarCodeScanned = ({type, data}) => {
         setScanned(true);
-        let userid = userId.navigation.state.params;
-        if (userid.indexOf('/')){
+        let id = userId.navigation.state.params;
+        if (id.indexOf('/')) {
             alert('Le QR code n\'est pas un code promo valide')
         } else {
-            addPromoToUserList(userid, data).then(response => {
+            addPromoToUserList(id, data).then(response => {
                 if (response.error) {
                     Alert.alert("Scan echoué",response.error);
                 } else {

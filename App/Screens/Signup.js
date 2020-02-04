@@ -7,8 +7,8 @@ import {
     TextInput,
     Dimensions,
     ImageBackground,
-    TouchableOpacity,
-    Alert
+    Image,
+    TouchableOpacity
 } from 'react-native';
 
 //Appel API
@@ -27,44 +27,53 @@ export default class Example extends Component {
     //Constructeur avec déclaration du state
     constructor(props) {
         super(props);
-        this.state = {firstname: '',lastname:'',mail:'',password:'',passwordV:'',hidePassword:true,hidePasswordV:true};
+        this.state = {
+            firstname: '',
+            lastname: '',
+            mail: '',
+            password: '',
+            passwordV: '',
+            hidePassword: true,
+            hidePasswordV: true
+        };
     }
 
     //Fonction pour cacher/afficher le mot de passe
     setPasswordVisibility = () => {
-        this.setState({ hidePassword: !this.state.hidePassword });
-    }
+        this.setState({hidePassword: !this.state.hidePassword});
+    };
     //Fonction pour cacher/afficher la validation du mot de passe
     setPasswordVisibilityV = () => {
-        this.setState({ hidePasswordV: !this.state.hidePasswordV });
-    }
+        this.setState({hidePasswordV: !this.state.hidePasswordV});
+    };
+
     //Fonction d'inscription
-    signup(){
+    signup() {
         const {navigate} = this.props.navigation;
         //Vérification si tous les champs sont renseignés
-        if(this.state.firstname == '' || this.state.lastname == '' || this.state.mail == '' || this.state.password == '' || this.state.passwordV == ''){
-            Alert.alert("Champ vide","Veuillez renseigner tout les champs")
-        }
-        else {
+        if (this.state.firstname == '' || this.state.lastname == '' || this.state.mail == '' || this.state.password == '' || this.state.passwordV == '') {
+            alert("Veuillez renseigner tout les champs")
+        } else {
             //Vérif si mot de passe et validation mot de passe sont pareils
             if (this.state.password != this.state.passwordV) {
-                Alert.alert("Mot de passe incorrect","Veuillez saisir deux fois le même mot de passe")
+                alert("Veuillez saisir deux fois le même mot de passe")
             } else {
                 //Appel à l'API
                 signup(this.state.mail, md5(this.state.password), this.state.firstname, this.state.lastname).then(data => {
                     //Si une erreur est retournée on l'affiche
                     if (data.error) {
-                        Alert.alert("Inscription impossible" + data.error)
+                        alert(data.error)
                     }
                     //Sinon création du compte et redirection vers login
                     else {
-                        Alert.alert("Inscription réussie",data.data)
+                        alert(data.data)
                         navigate('Login')
                     }
                 });
             }
         }
     }
+
     render() {
         //Affichage de la page
         return (
@@ -109,7 +118,7 @@ export default class Example extends Component {
                                onChangeText={(text) => this.setState({password: text})}
                     />
                     <TouchableOpacity style={styles.btnEye} onPress={this.setPasswordVisibility}>
-                        <Icon name={'md-eye'} size={26} />
+                        <Icon name={'md-eye'} size={26}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.inputContainer}>
@@ -122,11 +131,13 @@ export default class Example extends Component {
                                onChangeText={(text) => this.setState({passwordV: text})}
                     />
                     <TouchableOpacity style={styles.btnEye} onPress={this.setPasswordVisibilityV}>
-                        <Icon name={'md-eye'} size={26} />
+                        <Icon name={'md-eye'} size={26}/>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.btnSignup}>
-                    <Text style={styles.text} onPress={() => {this.signup()}}>Création du compte</Text>
+                    <Text style={styles.text} onPress={() => {
+                        this.signup()
+                    }}>Création du compte</Text>
                 </TouchableOpacity>
             </ImageBackground>
         );
@@ -182,9 +193,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center'
     },
-    btnEye:{
-        position:'absolute',
-        top:8,
-        right:37
+    btnEye: {
+        position: 'absolute',
+        top: 8,
+        right: 37
     }
 });
