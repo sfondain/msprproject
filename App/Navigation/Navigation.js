@@ -1,4 +1,4 @@
-import {createAppContainer} from 'react-navigation';
+import {createAppContainer,StackActions,NavigationActions} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 // Page de l'appli
@@ -7,6 +7,7 @@ import Scanner from '../Screens/Scanner';
 import ListePromo from '../Screens/ListePromo'
 import Login from "../Screens/Login";
 import Signup from "../Screens/Signup";
+
 
 const HomeStackNavigator = createStackNavigator({
     Login: {
@@ -24,7 +25,8 @@ const HomeStackNavigator = createStackNavigator({
     Home: {
         screen: Home,
         navigationOptions: {
-            title: 'GoStyle'
+            title: 'GoStyle',
+            headerLeft: () => null,
         }
     },
     Scan: {
@@ -40,5 +42,9 @@ const HomeStackNavigator = createStackNavigator({
         }
     }
 })
+
+
+
+
 
 export default createAppContainer(HomeStackNavigator)
