@@ -9,7 +9,8 @@ import {
     ImageBackground,
     Image,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    Alert
 } from 'react-native';
 
 
@@ -41,7 +42,7 @@ export default class Example extends Component {
             await AsyncStorage.setItem('user', id);
         } catch (error) {
             // Error saving data
-            alert("Impossible d'enregistrer l'utilisateur")
+            Alert.alert("Erreur","Impossible d'enregistrer l'utilisateur")
         }
     }
 
@@ -55,20 +56,24 @@ export default class Example extends Component {
         const {navigate} = this.props.navigation;
         //Si le mail est vide retourné une erreur
         if(this.state.mail == ''){
-            alert("Login ou mot de passe incorrect")
+            Alert.alert(
+                'Connexion Echouée',
+                'Veuillez renseigner tous les champs'
+            )
         }
         else {
             //Appel API
             login(this.state.mail, md5(this.state.password)).then(data => {
                 //Si retourner une erreur affichage de l'erreur
                 if (data.error) {
-                    alert(data.error)
+                    Alert.alert("Connexion Echouée",data.error)
                 //Sinon Connexion
                 } else {
                     //Stockage de l'id dans le localStorage
                     this._storeData(data.data.id)
                     //Clear de l'input du Password
                     this.textInput.clear()
+                    this.setState({password:''})
                     navigate('Home')
                 }
             });

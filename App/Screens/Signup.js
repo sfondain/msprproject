@@ -7,8 +7,8 @@ import {
     TextInput,
     Dimensions,
     ImageBackground,
-    Image,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 
 //Appel API
@@ -43,22 +43,22 @@ export default class Example extends Component {
         const {navigate} = this.props.navigation;
         //Vérification si tous les champs sont renseignés
         if(this.state.firstname == '' || this.state.lastname == '' || this.state.mail == '' || this.state.password == '' || this.state.passwordV == ''){
-            alert("Veuillez renseigner tout les champs")
+            Alert.alert("Champ vide","Veuillez renseigner tout les champs")
         }
         else {
             //Vérif si mot de passe et validation mot de passe sont pareils
             if (this.state.password != this.state.passwordV) {
-                alert("Veuillez saisir deux fois le même mot de passe")
+                Alert.alert("Mot de passe incorrect","Veuillez saisir deux fois le même mot de passe")
             } else {
                 //Appel à l'API
                 signup(this.state.mail, md5(this.state.password), this.state.firstname, this.state.lastname).then(data => {
                     //Si une erreur est retournée on l'affiche
                     if (data.error) {
-                        alert(data.error)
+                        Alert.alert("Inscription impossible" + data.error)
                     }
                     //Sinon création du compte et redirection vers login
                     else {
-                        alert(data.data)
+                        Alert.alert("Inscription réussie",data.data)
                         navigate('Login')
                     }
                 });

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, Button, AsyncStorage} from 'react-native';
+import {Text, View, StyleSheet, Button, Alert} from 'react-native';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 
 // Appel API
@@ -24,9 +24,9 @@ export default function App(userId) {
         } else {
             addPromoToUserList(userid, data).then(response => {
                 if (response.error) {
-                    alert(response.error);
+                    Alert.alert("Scan echoué",response.error);
                 } else {
-                    alert(response.data);
+                    Alert.alert("Scan réussi",response.data)
                 }
             });
         }
