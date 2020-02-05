@@ -68,6 +68,7 @@ export default class Example extends Component {
                     this._storeData(data.data.id)
                     //Clear de l'input du Password
                     this.textInput.clear()
+                    this.setState({password:''})
                     navigate('Home')
                 }
             });

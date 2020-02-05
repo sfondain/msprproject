@@ -10,11 +10,7 @@ class Home extends React.Component {
         this.state = {userId: this._retrieveData()}
     }
 
-    // getUserId() {
-    //     this._retrieveData()
-    // }
-
-    // Récupère les données stockées dans le localstrorage
+    // Récupère les données stockées dans le localstorage
     _retrieveData = async () => {
         const value = await AsyncStorage.getItem('user')
         this.setState({userId: value})
