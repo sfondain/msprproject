@@ -19,7 +19,7 @@ export default function App(userId) {
     const handleBarCodeScanned = ({type, data}) => {
         setScanned(true);
         let id = userId.navigation.state.params;
-        if (id.indexOf('/') === -1) {
+        if (data.indexOf('/') === -1) {
             addPromoToUserList(id, data).then(response => {
                 if (response.error) {
                     Alert.alert("Scan echoué",response.error);
